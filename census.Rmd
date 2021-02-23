@@ -4,13 +4,48 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(readr)
+library(skimr)
 ```
 
 ```{r}
-read_csv("~/data/census/censoc_dmf_demo_v1/censoc_dmf_demo_v1.csv") %>% 
-  View()
+x <- read_csv("~/data/census/censoc_dmf_demo_v1/censoc_dmf_demo_v1.csv",
+         col_types = cols(.default = col_character(),
+                          bmonth = col_double(),
+                          byear = col_double(),
+                          dmonth = col_double(),
+                          dyear = col_double(),
+                          death_age = col_double(),
+                          weight = col_double(),
+                          perwt = col_double(),
+                          age = col_double(),
+                          incwage = col_double(),
+                          occ = col_double(),
+                          occscore = col_double(),
+                          rent = col_double()))
+
+skim(x)
+
+x
+```
+
+```{r}
+x %>% 
+  mutate(d_month_name = dmonth)
+```
+
+```{r read_data, cache = TRUE}
+x <- read_csv("~/data/census/censoc_dmf_v2/censoc_dmf_v2.csv",
+              col_types = cols(HISTID = col_character(),
+                               byear = col_double(),
+                               bmonth = col_double(),
+                               dyear = col_double(),
+                               dmonth = col_double(),
+                               death_age = col_double(),
+                               link_abe_exact_conservative = col_double(),
+                               weight = col_double(),
+                               weight_conservative = col_double()))
 ```
 
